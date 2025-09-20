@@ -1,4 +1,5 @@
 import mongoose, { Document } from "mongoose";
+import { Submission } from "../types";
 
 interface DUser extends Document {
     username: string;

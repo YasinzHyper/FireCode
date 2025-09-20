@@ -17,7 +17,68 @@ You can see the live demo of website at https://fire-code.vercel.app.
 
 # Installation
 
-### Clone the repository and install server and client dependencies:
+## 🐳 Quick Start with Docker (Recommended)
+
+The easiest way to get FireCode running locally is using Docker. This method requires no manual dependency installation or database setup.
+
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+
+### Setup Steps
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/ManiGhazaee/FireCode.git
+cd FireCode
+```
+
+2. **Run the application:**
+
+**On Windows:**
+```bash
+# Double-click start-dev.bat or run in PowerShell:
+.\start-dev.bat
+```
+
+**On macOS/Linux:**
+```bash
+# Make script executable and run:
+chmod +x start-dev.sh
+./start-dev.sh
+```
+
+**Or manually with Docker Compose:**
+```bash
+docker-compose up --build
+```
+
+3. **Access the application:**
+- 🌐 **Frontend**: [http://localhost:3000](http://localhost:3000)
+- 🔧 **Backend API**: [http://localhost:80](http://localhost:80)
+- 🍃 **MongoDB**: `localhost:27017`
+
+4. **Stop the application:**
+```bash
+# Use the stop scripts
+.\stop-dev.bat    # Windows
+./stop-dev.sh     # macOS/Linux
+
+# Or manually
+docker-compose down
+```
+
+That's it! The Docker setup includes:
+- ✅ MongoDB database with persistent storage
+- ✅ Backend server with hot reload
+- ✅ Frontend with live reload
+- ✅ All dependencies automatically installed
+- ✅ Cross-platform compatibility
+
+## 📦 Manual Installation (Alternative)
+
+If you prefer to run without Docker:
+
+### 1. Clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/ManiGhazaee/FireCode.git
@@ -27,27 +88,86 @@ cd ../client
 npm install
 ```
 
-### Start the client in the `client` directory:
+### 2. Configure the MongoDB Database and JWT Secret:
+
+Before starting the server, copy the environment template and configure it:
+
+```bash
+# In the server directory
+cp .env.example .env
+```
+
+Edit `server/.env` file and set:
+
+-   `MONGODB_URI`: Set this variable to your MongoDB connection string.
+-   `ACCESS_TOKEN_SECRET`: Set this variable to a secret key for JWT access tokens.
+
+### 3. Configure the client environment:
+
+```bash
+# In the client directory
+cp .env.example .env
+```
+
+### 4. Start the client in the `client` directory:
 
 ```bash
 npm start
 ```
 
-### Configure the MongoDB Database and JWT Secret:
-
-Before starting the server, make sure to configure the following environment variables in the `server/.env` file:
-
--   `MONGODB_URI`: Set this variable to your MongoDB connection string.
--   `ACCESS_TOKEN_SECRET`: Set this variable to a secret key for JWT access tokens.
-
-### Configure the API URL:
+### 5. Configure the API URL:
 
 To use your own API, open the `client/src/App.tsx` file and find the `API_URL` constant. Update its value to match the URL of your deployed server (`http://localhost:80`).
 
-### Start the server in the `server` directory:
+### 6. Start the server in the `server` directory:
 
 ```bash
 npm start
+```
+
+## 🔧 Docker Troubleshooting
+
+### Common Issues:
+
+**Port already in use:**
+```bash
+# Stop any running containers
+docker-compose down
+
+# Check what's using the ports
+netstat -tulpn | grep :3000    # Linux/macOS
+netstat -ano | findstr :3000   # Windows
+```
+
+**Permission issues on macOS/Linux:**
+```bash
+# Make scripts executable
+chmod +x start-dev.sh stop-dev.sh
+```
+
+**Database data persistence:**
+```bash
+# To reset the database completely
+docker-compose down -v
+docker-compose up --build
+```
+
+**View logs:**
+```bash
+# View logs for all services
+docker-compose logs
+
+# View logs for specific service
+docker-compose logs server
+docker-compose logs client
+docker-compose logs mongodb
+```
+
+**Health Check:**
+```bash
+# Run health check script
+.\health-check.bat    # Windows
+./health-check.sh     # macOS/Linux
 ```
 
 # Features

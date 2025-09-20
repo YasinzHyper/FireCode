@@ -1,4 +1,5 @@
 import mongoose, { Document } from "mongoose";
+import { ProblemData, EditorialData } from "../types";
 
 export interface DProblem extends Document {
     main: ProblemData;

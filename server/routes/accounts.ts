@@ -8,13 +8,14 @@ require("dotenv");
 import Filter from "bad-words";
 import ProblemModel from "../models/problem";
 import { customCors } from "../middlewares/cors";
+import { IUser } from "../types";
 
 const accounts = express.Router();
 
 accounts.post<
     {},
     { id?: string; token?: string; success: boolean; message: string },
-    User
+    IUser
 >("/signup", async (req, res) => {
     try {
         const { username, email, password } = req.body;

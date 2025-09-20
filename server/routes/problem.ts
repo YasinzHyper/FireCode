@@ -8,6 +8,7 @@ import {
     sortByDifficulty,
     sortByTitle,
 } from "../utils/utils";
+import { Sort, Submission } from "../types";
 
 const problem = express.Router();
 
